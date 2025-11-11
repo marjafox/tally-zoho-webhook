@@ -22,12 +22,21 @@ app.use(express.json());
 
 // Function to get a fresh access token
 async function getAccessToken() {
+    console.log('getAccessToken called');
+    console.log('Current accessToken:', accessToken ? 'exists' : 'null');
+    console.log('Token expiry:', tokenExpiry);
+    console.log('Current time:', Date.now());
+    
     // If we have a valid token, use it
     if (accessToken && tokenExpiry && Date.now() < tokenExpiry) {
+        console.log('Using existing token');
         return accessToken;
     }
 
     // Otherwise, get a new one using refresh token
+    console.log('Requesting new token from Zoho');
+    console.log('Refresh token available:', ZOHO_REFRESH_TOKEN ? 'yes' : 'no');
+    
     try {
         const response = await axios.post('https://accounts.zoho.com/oauth/v2/token', null, {
             params: {
@@ -38,9 +47,13 @@ async function getAccessToken() {
             }
         });
 
+        console.log('Token response received:', response.data);
+        
         accessToken = response.data.access_token;
         // Token expires in 1 hour, refresh 5 minutes early
         tokenExpiry = Date.now() + (55 * 60 * 1000);
+        
+        console.log('New access token set:', accessToken ? 'yes' : 'no');
         
         return accessToken;
     } catch (error) {
