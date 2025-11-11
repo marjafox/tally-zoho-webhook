@@ -105,8 +105,8 @@ app.post('/webhook/tally', async (req, res) => {
         const formData = req.body.data;
         
         // Get email and testimonial from the form submission
-        const email = formData.fields.find(f => f.key === 'email')?.value;
-        const testimonial = formData.fields.find(f => f.key === 'testimonial')?.value;
+        const email = formData.fields.find(f => f.label === 'email')?.value;
+        const testimonial = formData.fields.find(f => f.label === 'What would you tell other leaders considering working with me?')?.value;
 
         if (!email) {
             console.error('No email found in form submission');
