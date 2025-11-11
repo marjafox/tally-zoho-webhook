@@ -8,6 +8,12 @@ const ZOHO_CLIENT_ID = process.env.ZOHO_CLIENT_ID;
 const ZOHO_CLIENT_SECRET = process.env.ZOHO_CLIENT_SECRET;
 const ZOHO_REFRESH_TOKEN = process.env.ZOHO_REFRESH_TOKEN;
 
+// Debuggin code
+console.log('Environment variables loaded:');
+console.log('Client ID:', ZOHO_CLIENT_ID ? 'Present' : 'MISSING');
+console.log('Client Secret:', ZOHO_CLIENT_SECRET ? 'Present' : 'MISSING');
+console.log('Refresh Token:', ZOHO_REFRESH_TOKEN ? 'Present' : 'MISSING');
+
 let accessToken = null;
 let tokenExpiry = null;
 
